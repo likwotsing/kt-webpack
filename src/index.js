@@ -1,10 +1,21 @@
 import _ from 'lodash';
+import './style.css';
+import Icon from './icon.png';
+import Data from './data.xml';
 
 function component() {
-  let element = document.createElement('div')
+  var element = document.createElement('div')
   
   // lodash
-  element.innerHTML = _.join(['Hello', 'webpack', 'ok'], '-')
+  element.innerHTML = _.join(['君问归期未有期', 'webpack'], ' ');
+  element.classList.add('hello');
+
+  var myIcon = new Image();
+  myIcon.src = Icon;
+  element.appendChild(myIcon);
+
+  console.log(Data);
+
   return element;
 }
 

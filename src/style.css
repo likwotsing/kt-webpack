@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('./张勃手写字体.ttf');
+  font-weight: bold;
+}
+.hello {
+  color: red;
+  font-family: 'MyFont';
+  /* background: url('./icon.png'); */
+}

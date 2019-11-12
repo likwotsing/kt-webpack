@@ -9,6 +9,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       title: 'Caching'
     }),
+    new webpack.HashedModuleIdsPlugin(),
     new CleanWebpackPlugin()
   ],
   output: {

@@ -2,8 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Webpack App</title>
+    <title>Getting Started</title>
+    <script>
+      var moderBrowser = (
+        'fetch' in window &&
+        'assign' in Object
+      );
+      console.log(moderBrowser, '1111')
+      if (!moderBrowser) {
+        console.log('old browser...')
+        // var scriptElement = document.createElement('script');
+        // scriptElement.async = false;
+        // scriptElement.src = './polyfills.bundle.js';
+        // document.head.appendChild(scriptElement);
+      }
+    </script>
   </head>
   <body>
-  <script type="text/javascript" src="bundle.js"></script></body>
+  <script type="text/javascript" src="polyfills.bundle.js"></script><script type="text/javascript" src="index.bundle.js"></script></body>
 </html>

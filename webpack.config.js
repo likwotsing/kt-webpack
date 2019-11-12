@@ -4,10 +4,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  mode: 'production', // development  production
   entry: {
     app: './src/index.js'
   },
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
     hot: true
@@ -29,7 +30,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   output: {
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   }

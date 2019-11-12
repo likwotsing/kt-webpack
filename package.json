@@ -1,9 +1,9 @@
 {
-  "name": "my-webpack",
+  "name": "my-webpack-likwotsing",
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "dist/webpack-numbers.js",
+  "main": "dist/webpack-numbers-likwotsing.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"

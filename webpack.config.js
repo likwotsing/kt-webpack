@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'webpack-numbers.js',
+    filename: 'webpack-numbers-likwotsing.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'webpackNumbers',
     libraryTarget: 'umd'

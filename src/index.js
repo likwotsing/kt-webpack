@@ -13,3 +13,11 @@ function component() {
 }
 
 document.body.appendChild(component());
+
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
+  .then(json => {
+    console.log('We retrieved some data...');
+    console.log(json);
+  })
+  .catch(error => console.log('Something went wrong ...', data))

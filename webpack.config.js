@@ -1,19 +1,29 @@
 const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'webpack-numbers.js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'webpackNumbers',
-    libraryTarget: 'umd'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_'
-    }
-  }
+  module: {
+    rules: [
+      {
+        test: require.resolve('./src/index.js'),
+        use: 'imports-loader?this=>window'
+      },
+      {
+        test: require.resolve('./src/globals.js'),
+        use: 'exports-loader?file,parse=helpers.parse'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      join: ['lodash', 'join']
+    }),
+    new HtmlWebpackPlugin()
+  ]
 }

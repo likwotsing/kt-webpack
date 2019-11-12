@@ -1,14 +1,15 @@
-import _ from 'lodash';
-import numRef from './ref.json';
+const file = require("exports-loader?file,parse=helpers.parse!./globals.js");
 
-export function numToWord(num) {
-  return _.reduce(numRef, (accum, ref) =>{
-    return ref.num === num ? ref.word : accum;
-  }, '');
+console.log(file)
+
+function component() {
+  var element = document.createElement('div');
+
+  element.innerHTML = join(['Hello', 'webpack'], ' ');
+
+  this.alert('Hmmm, this probably is\'t a great idea...');
+
+  return element;
 }
 
-export function wordToNum(word) {
-  return _.reduce(numRef, (accum, ref) => {
-    return ref.word === word && word.toLowerCase() ? ref.num : accum;
-  }, -1);
-}
+document.body.appendChild(component());

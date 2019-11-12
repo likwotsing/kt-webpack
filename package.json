@@ -1,8 +1,9 @@
 {
   "name": "my-webpack-kwotsing",
+  "sideEfects": true,
   "version": "1.0.0",
   "description": "kwotsing",
-  "private": false,
+  "private": true,
   "main": "dist/webpack-numbers.js",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
@@ -16,7 +17,10 @@
     "url": "https://github.com/likwotsing/my-webpack/issues"
   },
   "homepage": "https://github.com/likwotsing/my-webpack#readme",
-  "keywords": ["关键字webpack", "kwotsing"],
+  "keywords": [
+    "关键字webpack",
+    "kwotsing"
+  ],
   "author": "kwotsing",
   "license": "ISC",
   "devDependencies": {
@@ -40,6 +44,8 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "exports-loader": "^0.7.0",
+    "imports-loader": "^0.8.0",
     "lodash": "^4.17.15"
   }
 }

@@ -3,11 +3,12 @@
   "sideEfects": true,
   "version": "1.0.0",
   "description": "kwotsing",
-  "private": true,
+  "private": false,
   "main": "dist/webpack-numbers.js",
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "start": "http-server dist -o -p 8000 -d true",
+    "build": "webpack",
+    "aw": "anywhere -d dist"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "author": "kwotsing",
   "license": "ISC",
   "devDependencies": {
+    "anywhere": "^1.5.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
     "csv-loader": "^3.0.2",

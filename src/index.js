@@ -7,7 +7,7 @@ function component() {
 
   element.innerHTML = join(['Hello', 'webpack'], ' ');
 
-  this.alert('Hmmm, this probably is\'t a great idea...');
+  // this.alert('Hmmm, this probably is\'t a great idea...');
 
   return element;
 }

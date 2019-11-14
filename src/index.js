@@ -1,23 +1,18 @@
-const file = require("exports-loader?file,parse=helpers.parse!./globals.js");
+import _ from 'lodash';
+import printMe from './print.js';
 
-console.log(file)
 
 function component() {
   var element = document.createElement('div');
+  var btn = document.createElement('button');
 
-  element.innerHTML = join(['Hello', 'webpack'], ' ');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-  // this.alert('Hmmm, this probably is\'t a great idea...');
+  btn.innerHTML = 'Click me and check the console!';
+  btn.onclick = printMe;
+  element.appendChild(btn);
 
   return element;
 }
 
 document.body.appendChild(component());
-
-fetch('https://jsonplaceholder.typicode.com/users')
-  .then(response => response.json())
-  .then(json => {
-    console.log('We retrieved some data...');
-    console.log(json);
-  })
-  .catch(error => console.log('Something went wrong ...', data))

@@ -6,7 +6,7 @@
   "private": false,
   "main": "dist/webpack-numbers.js",
   "scripts": {
-    "start": "http-server dist -o -p 8000 -d true",
+    "start": "http-server dist",
     "build": "webpack",
     "aw": "anywhere -d dist"
   },

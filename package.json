@@ -3,12 +3,9 @@
   "sideEfects": true,
   "version": "1.0.0",
   "description": "kwotsing",
-  "private": false,
-  "main": "dist/webpack-numbers.js",
+  "private": true,
   "scripts": {
-    "start": "http-server dist",
-    "build": "webpack",
-    "aw": "anywhere -d dist"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

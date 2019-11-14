@@ -4,22 +4,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-    print: './src/print.js'
-  },
+  entry: './src/index.js',
   output: {
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Progressive Web Application'
-    }),
-    new CleanWebpackPlugin(),
-    new WorkboxPlugin.GenerateSW({
-      clientsClaim: true,
-      skipWaiting: true
-    })
-  ]
+  }
 }

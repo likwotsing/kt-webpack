@@ -426,6 +426,10 @@ npm init -y // 创建一个package.json文件
 console.log('hello')
 ```
 
+- #!：符号名称，指定文件的执行程序
+- /usr/bin/env：执行程序的位置
+- node：使用node
+
 在项目目录下执行：
 
 ```js

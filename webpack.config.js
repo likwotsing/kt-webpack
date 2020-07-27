@@ -1,48 +1,52 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const glob = require('glob')
+// const glob = require('glob')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// 开启js模块的HMR，需要webpack
+const webpack = require('webpack')
 
 // 多页面打包通用方案
-const setMPA = () => {
-  const entry = {}
-  const htmlwebpackplugins = []
+// const setMPA = () => {
+//   const entry = {}
+//   const htmlwebpackplugins = []
 
-  const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
-  // console.log(entryFiles)
+//   const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
+//   // console.log(entryFiles)
 
-  entryFiles.map((item, index) => {
-    const entryFile = entryFiles[index]
-    const match = entryFile.match(/src\/(.*)\/index\.js$/)
-    // console.log(match)
-    const pageName = match && match[1]
+//   entryFiles.map((item, index) => {
+//     const entryFile = entryFiles[index]
+//     const match = entryFile.match(/src\/(.*)\/index\.js$/)
+//     // console.log(match)
+//     const pageName = match && match[1]
 
-    entry[pageName] = entryFile
+//     entry[pageName] = entryFile
 
-    htmlwebpackplugins.push(
-      new HtmlWebpackPlugin({
-        template: path.join(__dirname, `./src/${pageName}/index.html`),
-        filename: `${pageName}.html`,
-        chunks: [pageName]
-      })
-    )
-  })
+//     htmlwebpackplugins.push(
+//       new HtmlWebpackPlugin({
+//         template: path.join(__dirname, `./src/${pageName}/index.html`),
+//         filename: `${pageName}.html`,
+//         chunks: [pageName]
+//       })
+//     )
+//   })
 
-  return {
-    entry,
-    htmlwebpackplugins
-  }
-}
+//   return {
+//     entry,
+//     htmlwebpackplugins
+//   }
+// }
 
-const { entry, htmlwebpackplugins } = setMPA()
+// const { entry, htmlwebpackplugins } = setMPA()
 
 module.exports = {
-  // entry: './src/index.js',
+  entry: './src/index.js',
   // entry: {
   //   main: './src/index.js',
   //   list: './src/list.js',
   //   detail: './src/detail.js'
   // },
-  entry,
+  // entry,
   mode: 'development',
   output: {
     filename: '[name].js',
@@ -53,11 +57,28 @@ module.exports = {
       '@': path.join(__dirname, './src')
     }
   },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    port: 9090,
+    contentBase: path.join(__dirname, 'public'),
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9091'
+      }
+    },
+    hot: true,
+    hotOnly: true
+  },
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
         test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
+        // use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
       },
       {
         test: /\.(eot|ttf|woff|woff2|svg)$/,
@@ -88,6 +109,15 @@ module.exports = {
     //   filename: 'detail.html',
     //   chunks: ['detail', 'list']
     // })
-    ...htmlwebpackplugins
+    // ...htmlwebpackplugins
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'index.html'
+    }),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name][chunkhash:8].css'
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }

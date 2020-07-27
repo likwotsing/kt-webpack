@@ -1,5 +1,7 @@
 // import css from '@/styles/css/index.less' // 需要在webpack里配置别名
 import '@/styles/css/index.css'
+import '@babel/polyfill'
+
 console.log('home.js'); console.log('cheap')
 
 // css的HMR
@@ -13,24 +15,38 @@ console.log('home.js'); console.log('cheap')
 //   document.body.appendChild(div)
 // }
 
-console.log('js的热模块替到')
 
-import axios from 'axios'
+// import axios from 'axios'
 
-axios.get('/api/info')
-  .then(res => {
-    console.log(res)
-  })
+// axios.get('/api/info')
+//   .then(res => {
+//     console.log(res)
+//   })
 
-import counter from './counter'
-import number from './number'
 
-counter()
-number()
 
-if (module.hot) {
-  module.hot.accept('./number', function() {
-    document.body.removeChild(document.getElementById('number'))
-    number()
-  })
-}
+// console.log('js的热模块替到')
+// import counter from './counter'
+// import number from './number'
+
+// counter()
+// number()
+
+// if (module.hot) {
+//   module.hot.accept('./number', function() {
+//     document.body.removeChild(document.getElementById('number'))
+//     number()
+//   })
+// }
+
+
+// babel
+// const arr = [new Promise(() => {}), new Promise(() => {})]
+
+// arr.map(item => {
+//   console.log(item)
+// })
+
+const arr = [1, 2, 3]
+const r = arr.includes(3)
+console.log(r)

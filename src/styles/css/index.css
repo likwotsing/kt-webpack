@@ -5,3 +5,8 @@ body {
 div:nth-of-type(odd) {
   background: yellow;
 }
+
+.li {
+  /* background: url(../../images/logo.png); */
+  background: url(~@assets/logo.png);
+}

@@ -1,6 +1,6 @@
 // import css from '@/styles/css/index.less' // 需要在webpack里配置别名
 import '@/styles/css/index.css'
-import '@babel/polyfill'
+// import '@babel/polyfill'
 
 console.log('home.js'); console.log('cheap')
 
@@ -50,3 +50,14 @@ console.log('home.js'); console.log('cheap')
 const arr = [1, 2, 3]
 const r = arr.includes(3)
 console.log(r)
+
+
+// 支持react语法
+import React, { Component } from "react";
+import ReactDom from "react-dom";
+class App extends Component {
+  render() {
+    return <div>hello world</div>;
+  }
+}
+ReactDom.render(<App />, document.getElementById("app"));

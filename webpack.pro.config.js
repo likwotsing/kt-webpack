@@ -1,78 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const glob = require('glob')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// 开启js模块的HMR，需要webpack
-const webpack = require('webpack')
 // 压缩css
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const baseConfg = require('./webpack.base.config')
+const merge = require('webpack-merge')
 
-// 多页面打包通用方案
-// const setMPA = () => {
-//   const entry = {}
-//   const htmlwebpackplugins = []
 
-//   const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
-//   // console.log(entryFiles)
-
-//   entryFiles.map((item, index) => {
-//     const entryFile = entryFiles[index]
-//     const match = entryFile.match(/src\/(.*)\/index\.js$/)
-//     // console.log(match)
-//     const pageName = match && match[1]
-
-//     entry[pageName] = entryFile
-
-//     htmlwebpackplugins.push(
-//       new HtmlWebpackPlugin({
-//         template: path.join(__dirname, `./src/${pageName}/index.html`),
-//         filename: `${pageName}.html`,
-//         chunks: [pageName]
-//       })
-//     )
-//   })
-
-//   return {
-//     entry,
-//     htmlwebpackplugins
-//   }
-// }
-
-// const { entry, htmlwebpackplugins } = setMPA()
-
-module.exports = {
-  entry: './src/index.js',
-  // entry: {
-  //   main: './src/index.js',
-  //   list: './src/list.js',
-  //   detail: './src/detail.js'
-  // },
-  // entry,
-  mode: 'development',
+const proConfig = {
+  mode: 'production',
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     // 使用cdn：https://via.placeholder.com/
-    // publicPath: 'https://via.placeholder.com/'
-  },
-  resolve: {
-    alias: {
-      '@': path.join(__dirname, './src'),
-      '@assets': path.resolve(__dirname, './src/images/')
-    }
-  },
-  devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    port: 9090,
-    contentBase: path.join(__dirname, 'public'),
-    proxy: {
-      '/api': {
-        target: 'http://localhost:9091'
-      }
-    },
-    hot: true,
-    hotOnly: true
+    publicPath: 'https://via.placeholder.com/'
   },
   module: {
     rules: [
@@ -80,7 +20,15 @@ module.exports = {
         test: /\.css$/,
         include: path.resolve(__dirname, './src'), // 推荐使用includes
         // exclude: path.resolve(__dirname, './node_modules'),
-        use: ['style-loader', 'css-loader'],
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
+          'css-loader'
+        ]
       },
       {
         test: /\.less$/,
@@ -98,26 +46,6 @@ module.exports = {
           'postcss-loader',
           'less-loader'
         ]
-      },
-      {
-        test: /\.(eot|ttf|woff|woff2|svg)$/,
-        include: path.resolve(__dirname, './src'), // 推荐使用
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: '[name]_[hash:6].[ext]',
-            outputPath: 'iconfont/',
-            limit: 1024
-          }
-        }
-      },
-      {
-        test: /\.js$/,
-        include: path.resolve(__dirname, './src'), // 推荐使用
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
       },
       {
         test: /\.(png|jpe?g|gif|webp)$/,
@@ -168,22 +96,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: './src/index.html',
-    //   filename: 'index.html',
-    //   chunks: ['main']
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: './src/index.html',
-    //   filename: 'list.html',
-    //   chunks: ['list']
-    // }),
-    // new HtmlWebpackPlugin({
-    //   template: './src/index.html',
-    //   filename: 'detail.html',
-    //   chunks: ['detail', 'list']
-    // })
-    // ...htmlwebpackplugins
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
@@ -196,17 +108,18 @@ module.exports = {
         useShortDoctype: true
       }
     }),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
+      // 容易造成层级问题，在loader里设置publicPath解决
       filename: 'css/[name][chunkhash:8].css'
     }),
-    new webpack.HotModuleReplacementPlugin(),
     // 压缩css
-    // new OptimizeCssAssetsPlugin({
-    //   cssProcessor: require('cssnano'),
-    //   cssProcessorPluginOptions: {
-    //     preset: ['default', { discardComments: { removeAll: true } }],
-    //   }
-    // })
+    new OptimizeCssAssetsPlugin({
+      cssProcessor: require('cssnano'),
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      }
+    })
   ]
 }
+
+module.exports = merge(baseConfg, proConfig)

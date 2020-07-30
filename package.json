@@ -5,8 +5,9 @@
   "description": "kwotsing",
   "private": true,
   "scripts": {
-    "dev": "webpack",
-    "dev:server": "webpack-dev-server"
+    "dev": "webpack --config webpack.dev.config.js",
+    "dev:server": "webpack-dev-server --config webpack.dev.config.js",
+    "build": "webpack --config webpack.pro.config.js"
   },
   "repository": {
     "type": "git",

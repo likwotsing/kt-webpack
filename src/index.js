@@ -1,4 +1,4 @@
-import css from '@/styles/css/index.less' // 需要在webpack里配置别名
+// import css from '@/styles/css/index.less' // 需要在webpack里配置别名
 import '@/styles/css/index.css'
 // import '@/styles/css/list.css'
 // import '@babel/polyfill'

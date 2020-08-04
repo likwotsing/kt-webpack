@@ -1,4 +1,5 @@
 const path = require('path')
+const CopyrightWebpackPlugin = require('./src/myPlugins/copyright-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -45,5 +46,8 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [new CopyrightWebpackPlugin({
+    name: '我的plugin'
+  })]
 }

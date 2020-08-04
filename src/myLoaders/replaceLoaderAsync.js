@@ -6,7 +6,7 @@ module.exports = function(source) {
 
   // webpack5以上，推荐使用loader-utils
   const options = loaderUtils.getOptions(this)
-  console.log(options)
+  // console.log(options)
 
   // 同步使用callback返回
   // const result = source.replace('webpack', options.name)
